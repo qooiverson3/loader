@@ -3,6 +3,7 @@ package pkg
 import (
 	"context"
 	"log"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -15,7 +16,7 @@ type Mgo struct {
 }
 
 func NewMgo(url string) *Mgo {
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(url))
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(url).SetTimeout(5*time.Second))
 	if err != nil {
 		log.Fatal(err)
 	}
